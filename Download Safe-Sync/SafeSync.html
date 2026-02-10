@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSync | Desktop Backup & Sync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #F9FAFB;
+            font-family: 'Inter', sans-serif;
+            color: #0F172A;
+        }
+        .primary-bg { background-color: #FF5722; }
+        .secondary-bg { background-color: #059669; }
+        .dark-bg { background-color: #0F172A; }
+        .btn-primary { 
+            background-color: #FF5722;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #e64a19;
+            transform: translateY(-2px);
+        }
+        .btn-guide {
+            border: 2px solid #059669;
+            color: #059669;
+            transition: all 0.2s;
+        }
+        .btn-guide:hover {
+            background-color: #059669;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .feature-card {
+            background: white;
+            border: 1px solid #F3F4F6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center">
+
+    <header class="w-full max-w-4xl px-6 pt-16 pb-12 text-center">
+        <!-- Soft blue-orange hero icon -->
+        <div class="mb-6 inline-block p-6 rounded-full shadow-lg" style="background-color:#DBEAFE;">
+            <i class="fas fa-sync-alt text-4xl" style="color:#0F172A;"></i>
+        </div>
+
+        <!-- Softer title -->
+        <h1 class="text-5xl font-extrabold mb-4 tracking-tight" style="color:#FF5722;">
+            Safe<span style="color:#059669;">Sync</span>
+        </h1>
+
+        <p class="text-xl text-slate-600 max-w-lg mx-auto leading-relaxed">
+            The ultimate desktop companion to keep your files secure, synchronized, and always within reach.
+        </p>
+    </header>
+
+
+
+    <div class="flex flex-col sm:flex-row gap-4 mb-16">
+        <a href="https://github.com/Backup-solution/BackUp-Solution/releases/download/v1.0/SafeSync.zip" class="btn-primary text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-3 shadow-xl">
+            <i class="fas fa-download"></i>
+            Download for Desktop
+        </a>
+        <a href="/Backup Solution User Guide.pdf" target="_blank" class="btn-guide px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-3">
+            <i class="fas fa-book-open"></i>
+            User Guide (PDF)
+        </a>
+    </div>
+
+    <section class="w-full max-w-5xl px-6 grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div class="feature-card p-8 rounded-2xl text-center">
+            <div class="w-12 h-12 bg-orange-100 text-[#FF5722] rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-cloud-upload-alt text-xl"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">Automatic Backup</h3>
+            <p class="text-slate-500 text-sm">Set it and forget it. Your files are backed up in real-time without lifting a finger.</p>
+        </div>
+
+        <div class="feature-card p-8 rounded-2xl text-center">
+            <div class="w-12 h-12 bg-green-100 text-[#059669] rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-laptop-house text-xl"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">Sync Across Devices</h3>
+            <p class="text-slate-500 text-sm">Access your data from any desktop. Seamlessly transition from work to home.</p>
+        </div>
+
+        <div class="feature-card p-8 rounded-2xl text-center">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-undo text-xl"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">Easy Restore</h3>
+            <p class="text-slate-500 text-sm">Accidentally deleted a file? Recover your data with a single click at any time.</p>
+        </div>
+    </section>
+
+    <section class="w-full max-w-3xl px-6 text-center mb-20">
+        <h2 class="text-2xl font-bold mb-4">Why choose SafeSync?</h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+            SafeSync was built with privacy and speed in mind. Unlike other cloud services, we prioritize end-to-end encryption, ensuring that only you have access to your sensitive information.
+        </p>
+        <p class="text-slate-600 leading-relaxed">
+            Optimized for Windows, macOS, and Linux, it uses minimal system resources while providing maximum protection for your digital life.
+        </p>
+    </section>
+
+    <footer class="w-full border-t border-gray-200 py-10 mt-auto">
+        <div class="text-center text-slate-400 text-sm">
+            <p>&copy; 2024 SafeSync Desktop. All rights reserved.</p>
+            <p class="mt-2">Privacy Policy &bull; Terms of Service</p>
+        </div>
+    </footer>
+
+</body>
+</html>
