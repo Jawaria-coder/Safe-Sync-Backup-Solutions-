@@ -6,7 +6,6 @@ import hashlib
 import base64
 import platform
 
-
 # -------------------------
 # Helper to get correct path in dev and PyInstaller exe
 # -------------------------
@@ -15,75 +14,82 @@ def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS  # PyInstaller temp folder
     except AttributeError:
-        base_path = os.path.abspath(".")  # Normal Python environment
+        base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
 # -------------------------
 # Writable folder to store key and other files
 # -------------------------
-# Absolute path to project root (assuming encryption.py is in src\backup)
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 WRITABLE_FOLDER = os.path.join(PROJECT_ROOT, "database")
+os.makedirs(WRITABLE_FOLDER, exist_ok=True)
 KEY_FILE = os.path.join(WRITABLE_FOLDER, "encryption.key")
 
-
 # -------------------------
-# Generate key (run only once)
+# Machine identifier (improved stability)
 # -------------------------
-
-
 def get_machine_identifier():
-    # Get MAC address
+    # MAC address
     mac = uuid.getnode()
     mac_bytes = mac.to_bytes(8, byteorder="big", signed=False)
 
-    # Get CPU/Chip info
-    cpu_info = platform.processor().encode() if platform.processor() else b"defaultcpu"
+    # CPU/Chip info
+    cpu_info = platform.processor() or "defaultcpu"
+    cpu_bytes = cpu_info.encode("utf-8")
 
-    # Combine both and hash to 32 bytes
-    raw = mac_bytes + cpu_info
+    # Include OS name
+    system_info = platform.system().encode("utf-8")
+
+    # Combine all
+    raw = mac_bytes + cpu_bytes + system_info
+
+    # Hash to 32 bytes
     digest = hashlib.sha256(raw).digest()
-    return digest
+
+    # URL-safe for Fernet
+    return base64.urlsafe_b64encode(digest)
 
 def get_machine_fernet():
-    return Fernet(base64.urlsafe_b64encode(get_machine_identifier()))
+    return Fernet(get_machine_identifier())
 
 # -------------------------
-# Load the existing key
+# Generate key (run once)
 # -------------------------
-
 def generate_key():
     if os.path.exists(KEY_FILE):
-        print("Key already exists at", KEY_FILE)
-        return
+        return  # Key already exists
 
-    # Generate normal Fernet master key
+    # Generate master Fernet key
     master_key = Fernet.generate_key()
 
-    # Encrypt master key with machine-specific Fernet
+    # Encrypt master key with machine Fernet
     machine_fernet = get_machine_fernet()
     encrypted_master = machine_fernet.encrypt(master_key)
 
-    # Save encrypted key to file
+    # Save encrypted key
     with open(KEY_FILE, "wb") as f:
         f.write(encrypted_master)
 
     print("Machine-bound encryption key generated and saved.")
 
-
+# -------------------------
+# Load existing key (auto-generate if missing)
+# -------------------------
 def load_key():
     if not os.path.exists(KEY_FILE):
-        raise FileNotFoundError("Encryption key not found.")
+        # Automatically generate key on first run
+        generate_key()
 
     with open(KEY_FILE, "rb") as f:
         encrypted_master = f.read()
 
-    # Decrypt using machine-specific Fernet
     machine_fernet = get_machine_fernet()
     try:
         master_key = machine_fernet.decrypt(encrypted_master)
     except Exception as e:
-        raise ValueError("Failed to decrypt key: machine mismatch or key corrupted.") from e
+        raise ValueError(
+            "Failed to decrypt key: machine mismatch or key corrupted."
+        ) from e
 
     return master_key
 
@@ -118,14 +124,15 @@ def decrypt_file(enc_file_path):
         f.write(decrypted)
     return new_file_path
 
+# -------------------------
+# Test run
+# -------------------------
 if __name__ == "__main__":
-    # 1 Generate machine-bound key (if it doesn't exist)
-    generate_key()
-     # 2 Load and display the decrypted master key
+    # Generates key automatically if missing
     master_key = load_key()
     print("Decrypted master key (Fernet):", master_key.decode())
-    # 3 Optional: test encryption/decryption
-    test_file = "test.txt"  # make sure this file exists in the same folder
+
+    test_file = "test.txt"
     if os.path.exists(test_file):
         enc_path = encrypt_file(test_file)
         print("Encrypted file:", enc_path)
