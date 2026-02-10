@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg
+*.egg-info/
+
+# PyInstaller
+dist/
+build/
+*.exe
+*.spec
+
+backup_test/*.zip
+database/encryption.key
+
+.DS_Store
+Thumbs.db
+*.log
+
+.vscode/
+.idea/
+*.swp
