@@ -2,8 +2,8 @@
 
 SafeSync App
 
-**Live Demo / Landing Page:** [SafeSync Landing Page](https://your-vercel-link.vercel.app/)  
-**Download for Windows:** [SafeSync v1.0](https://github.com/Backup-solution/BackUp-Solution/releases/download/v1.0/SafeSync.zip)
+**Live Demo / Landing Page:** [SafeSync Landing Page](https://safe-sync-backup-solutions.vercel.app/)  
+**Download for Windows:** [SafeSync v1.0](https://github.com/Jawaria-coder/Safe-Sync-Backup-Solutions-/releases/download/v1.0/SafeSync.zip)
 
 ---
 
@@ -40,7 +40,7 @@ SafeSync is a secure desktop application for **Windows** that helps users **back
 ## Installation
 
 **Option 1: Install Executable (Windows Only)**
-1. Download the latest `SafeSync.zip` from [GitHub Releases](https://github.com/Backup-solution/BackUp-Solution/releases/download/v1.0/SafeSync.zip)
+1. Download the latest `SafeSync.zip` from [GitHub Releases](https://github.com/Jawaria-coder/Safe-Sync-Backup-Solutions-/releases/download/v1.0/SafeSync.zip)
 2. Extract the contents to a folder
 3. Run `SafeSync.exe`
 4. Follow the instructions in the app to set up backup locations, cloud drives, and schedules
